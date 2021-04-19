@@ -1,0 +1,17 @@
+body{
+   
+    background-image: linear-gradient(to right, darkslategrey, yellow);    
+}
+
+#container{
+    background-color: darkslategrey;
+    width: 40vmin;
+    height: 70vmin;
+    margin: auto;
+    margin-top: 5%;
+    border-radius: 20px;
+    padding: 5vmin;
+    font-size: 5vw;
+    min-height: 300px;
+    min-width: 200px;
+}
