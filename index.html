@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="styles.css">
     <title>Calculadora</title>
 </head>
-<body onclick="cState()" onkeydown="cState()">
+<body onclick="cState()" onkeydown="keyDetect(event)">
     <div id="calculator">
        
         <div id="calculator-screen">
@@ -26,35 +26,35 @@
       
           <button type="button" id="sqrt" onclick="clickSqrt()">&#8730x</button>
           <button type="button" id="power" onclick="clickPower()">x<sup>2</sup></button>
-          <button type="button" id="percent">%</button>
-          <button type="button" id="divide">&divide;</button>
+          <button type="button" id="percent" onclick="clickPercent()">%</button>
+          <button type="button" id="divide" onclick="clickDivision()">&divide;</button>
       
 
         
           <button type="button" id="seven" onclick="clickNum(this.id)">7</button>
           <button type="button" id="eight" onclick="clickNum(this.id)">8</button>
           <button type="button" id="nine" onclick="clickNum(this.id)">9</button>
-          <button type="button" id="times"> &times;</button>
+          <button type="button" id="times" onclick="clickTimes()"> &times;</button>
       
 
       
           <button type="button" id="four" onclick="clickNum(this.id)">4</button>
           <button type="button" id="five" onclick="clickNum(this.id)">5</button>
           <button type="button" id="six" onclick="clickNum(this.id)">6</button>
-          <button type="button" id="minus">-</button>
+          <button type="button" id="minus" onclick="clickMinus()">-</button>
         
 
         
           <button type="button" id="one" onclick="clickNum(this.id)">1</button>
           <button type="button" id="two" onclick="clickNum(this.id)">2</button>
           <button type="button" id="three" onclick="clickNum(this.id)">3</button>
-          <button type="button" id="plus">+</button>
+          <button type="button" id="plus" onclick="clickPlus()">+</button>
     
         
         
           <button type="button" id="dot" onclick="clickDot()">.</button>
           <button type="button" id="zero" onclick="clickNum(this.id)">0</button>
-          <button type="button" id="equal">=</button>
+          <button type="button" id="equal" onclick="clickEquals()">=</button>
         
 
         

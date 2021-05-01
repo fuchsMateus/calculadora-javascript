@@ -33,18 +33,27 @@ function cState(){
     else{
         oPar.innerHTML = "(";
     }
+
 }
 
 function clickNum(clicked_id){
     const num = document.getElementById(clicked_id);
     if(input.value != "0"){
         input.value += num.innerText;
+        if(tempInput.value.charAt(tempInput.value.length-1) == "="){
+            tempInput.value = "";
+            input.value = num.innerText;
+        }
     }
 }
 
 function clickDel(){
     if(input.value != ""){
         input.value = input.value.slice(0, input.value.length-1);
+    }
+    if(tempInput.value.charAt(tempInput.value.length-1) == "="){
+        tempInput.value = "";
+        input.value = "";
     }
 }
 
@@ -67,14 +76,14 @@ function clickDot(){
  }
 
  function clickOPar(){
-    if(input.value.charAt(input.value.length-1) != "."){
+    if(input.value.charAt(input.value.length-1) != "." && tempInput.value.charAt(tempInput.value.length-1) != ")"){
         tempInput.value += "(";
     }
  }
 
  function clickCPar(){
     if(nCPar < nOPar){
-        if(tempInput.value.charAt(tempInput.value.length-1) != "("){
+        if(tempInput.value.charAt(tempInput.value.length-1) != "(" && tempInput.value.charAt(tempInput.value.length-1) != " "){
             tempInput.value += ")";
         }
         else{
@@ -96,7 +105,8 @@ function clickDot(){
        || input.value.charAt(input.value.length-i) == "3" || input.value.charAt(input.value.length-i) == "4"
        || input.value.charAt(input.value.length-i) == "5" || input.value.charAt(input.value.length-i) == "6"
        || input.value.charAt(input.value.length-i) == "7" || input.value.charAt(input.value.length-i) == "8"
-       || input.value.charAt(input.value.length-i) == "9" || input.value.charAt(input.value.length-i) == "0"){
+       || input.value.charAt(input.value.length-i) == "9" || input.value.charAt(input.value.length-i) == "0"
+       || input.value.charAt(input.value.length-i) == "."){
            nSize++;
        }
        else{break;}
@@ -144,6 +154,10 @@ function clickDot(){
     }
  }
 
+ function pow(n){
+    return n*n;
+ }
+
  function clickPower(){
     let nSize = 0;
     for (let i = 1; i <= input.value.length; i++) {
@@ -151,7 +165,8 @@ function clickDot(){
        || input.value.charAt(input.value.length-i) == "3" || input.value.charAt(input.value.length-i) == "4"
        || input.value.charAt(input.value.length-i) == "5" || input.value.charAt(input.value.length-i) == "6"
        || input.value.charAt(input.value.length-i) == "7" || input.value.charAt(input.value.length-i) == "8"
-       || input.value.charAt(input.value.length-i) == "9" || input.value.charAt(input.value.length-i) == "0"){
+       || input.value.charAt(input.value.length-i) == "9" || input.value.charAt(input.value.length-i) == "0"
+       || input.value.charAt(input.value.length-i) == "."){
            nSize++;
        }
        else{break;}
@@ -210,13 +225,18 @@ function clickDot(){
        || input.value.charAt(input.value.length-i) == "3" || input.value.charAt(input.value.length-i) == "4"
        || input.value.charAt(input.value.length-i) == "5" || input.value.charAt(input.value.length-i) == "6"
        || input.value.charAt(input.value.length-i) == "7" || input.value.charAt(input.value.length-i) == "8"
-       || input.value.charAt(input.value.length-i) == "9" || input.value.charAt(input.value.length-i) == "0"){
+       || input.value.charAt(input.value.length-i) == "9" || input.value.charAt(input.value.length-i) == "0"
+       || input.value.charAt(input.value.length-i) == "."){
            nSize++;
        }
        else{break;}
     }
     if(nSize > 0){
         let num = input.value.slice(-nSize);
+        if(num > 170){
+            input.value = "error";
+            return false;
+        }
         let result = fac(num);
         input.value = input.value.slice(0, input.value.length-nSize)+result;
     } 
@@ -267,3 +287,186 @@ function fac(n){
   return f[n] = fac(n-1) * n;
 }
 
+function clickPercent(){
+    let nSize = 0;
+    for (let i = 1; i <= input.value.length; i++) {
+        if(input.value.charAt(input.value.length-i) == "1" || input.value.charAt(input.value.length-i) == "2"
+       || input.value.charAt(input.value.length-i) == "3" || input.value.charAt(input.value.length-i) == "4"
+       || input.value.charAt(input.value.length-i) == "5" || input.value.charAt(input.value.length-i) == "6"
+       || input.value.charAt(input.value.length-i) == "7" || input.value.charAt(input.value.length-i) == "8"
+       || input.value.charAt(input.value.length-i) == "9" || input.value.charAt(input.value.length-i) == "0"
+       || input.value.charAt(input.value.length-i) == "."){
+           nSize++;
+       }
+       else{break;}
+    }
+    if(nSize > 0){
+        let num = input.value.slice(-nSize);
+        let result = num/100;
+        input.value = input.value.slice(0, input.value.length-nSize)+result;
+    } 
+
+    if(input.value == "" && tempInput.value.includes(")")){
+        let iCPar = tempInput.value.lastIndexOf(')')
+        let nOParTemp = 0;
+        let nCParTemp = 0;
+        let iOPar;
+        for (let i = iCPar; i >= 0; i--) {
+            if(tempInput.value.charAt(i) == "("){
+                nOParTemp++;
+            }
+            else if(tempInput.value.charAt(i) == ")"){
+                nCParTemp++;
+            }
+
+            if(nCParTemp - nOParTemp == 0){
+                iOPar = i;
+                break;
+            }
+        }
+
+        if(tempInput.value.charAt(iOPar-1) == "t"){
+            tempInput.value = tempInput.value.slice(0, iOPar-4)+"("+tempInput.value.slice(iOPar-4, iCPar)+") / 100"+tempInput.value.slice(iCPar);
+        }
+
+        else if(tempInput.value.charAt(iOPar-1) == "w"){
+            tempInput.value = tempInput.value.slice(0, iOPar-3)+"("+tempInput.value.slice(iOPar-3, iCPar)+") / 100"+tempInput.value.slice(iCPar);
+        }
+
+        else if(tempInput.value.charAt(iOPar-1) == "c"){
+            tempInput.value = tempInput.value.slice(0, iOPar-3)+"("+tempInput.value.slice(iOPar-3, iCPar)+") / 100"+tempInput.value.slice(iCPar);
+        }
+
+        else{
+            tempInput.value = tempInput.value.slice(0, iCPar)+" / 100"+tempInput.value.slice(iCPar);
+        }
+    }
+}
+
+function clickDivision(){
+    if(input.value != "" && tempInput.value == ""){   
+        tempInput.value += input.value + " / ";
+        input.value = "";    
+    }
+    else if(input.value == "" && tempInput.value != ""){
+        if(tempInput.value.charAt(tempInput.value.length-1) == ")"){
+            tempInput.value += " / ";
+        }
+        if(tempInput.value.charAt(tempInput.value.length-2) == "*" || tempInput.value.charAt(tempInput.value.length-2) == "-"
+        || tempInput.value.charAt(tempInput.value.length-2) == "+"){
+            tempInput.value = tempInput.value.slice(0, tempInput.value.length-2)+ "/ ";
+        }
+    }
+    else if(input.value != "" && tempInput.value != ""){
+        if(tempInput.value.charAt(tempInput.value.length-1) == "="){
+            tempInput.value = input.value + " / ";
+            input.value = "";
+        }
+        else{
+            tempInput.value += input.value + " * ";
+            input.value = "";
+        }
+    }
+}
+
+function clickTimes(){
+    if(input.value != "" && tempInput.value == ""){   
+        tempInput.value += input.value + " * ";
+        input.value = "";    
+    }
+    else if(input.value == "" && tempInput.value != ""){
+        if(tempInput.value.charAt(tempInput.value.length-1) == ")"){
+            tempInput.value += " * ";
+        }
+        if(tempInput.value.charAt(tempInput.value.length-2) == "/" || tempInput.value.charAt(tempInput.value.length-2) == "-"
+        || tempInput.value.charAt(tempInput.value.length-2) == "+"){
+            tempInput.value = tempInput.value.slice(0, tempInput.value.length-2)+ "* ";
+        }
+    }
+    else if(input.value != "" && tempInput.value != ""){
+        if(tempInput.value.charAt(tempInput.value.length-1) == "="){
+            tempInput.value = input.value + " * ";
+            input.value = "";
+        }
+        else{
+            tempInput.value += input.value + " * ";
+            input.value = "";
+        }
+    }
+}
+
+function clickMinus(){
+    if(input.value != "" && tempInput.value == ""){   
+        tempInput.value += input.value + " - ";
+        input.value = "";    
+    }
+    else if(input.value == "" && tempInput.value != ""){
+        if(tempInput.value.charAt(tempInput.value.length-1) == ")"){
+            tempInput.value += " - ";
+        }
+        if(tempInput.value.charAt(tempInput.value.length-2) == "*" || tempInput.value.charAt(tempInput.value.length-2) == "/"
+        || tempInput.value.charAt(tempInput.value.length-2) == "+"){
+            tempInput.value = tempInput.value.slice(0, tempInput.value.length-2)+ "- ";
+        }
+    }
+    else if(input.value != "" && tempInput.value != ""){
+        if(tempInput.value.charAt(tempInput.value.length-1) == "="){
+            tempInput.value = input.value + " - ";
+            input.value = "";
+        }
+        else{
+            tempInput.value += input.value + " - ";
+            input.value = "";
+        }
+    }
+    else if(input.value == "" && tempInput.value == ""){
+        tempInput.value+="-";
+    }
+}
+
+function clickPlus(){
+    if(input.value != "" && tempInput.value == ""){   
+        tempInput.value += input.value + " + ";
+        input.value = "";    
+    }
+    else if(input.value == "" && tempInput.value != ""){
+        if(tempInput.value.charAt(tempInput.value.length-1) == ")"){
+            tempInput.value += " + ";
+        }
+        if(tempInput.value.charAt(tempInput.value.length-2) == "*" || tempInput.value.charAt(tempInput.value.length-2) == "-"
+        || tempInput.value.charAt(tempInput.value.length-2) == "/"){
+            tempInput.value = tempInput.value.slice(0, tempInput.value.length-2)+ "+ ";
+        }
+    }
+    else if(input.value != "" && tempInput.value != ""){
+        if(tempInput.value.charAt(tempInput.value.length-1) == "="){
+            tempInput.value = input.value + " + ";
+            input.value = "";
+        }
+        else{
+            tempInput.value += input.value + " + ";
+            input.value = "";
+        }
+    }
+}
+
+function clickEquals(){
+    if(input.value != ""){
+        if(tempInput.value == ""){
+            tempInput.value = input.value+" =";
+        }
+        else{
+            if(tempInput.value.charAt(tempInput.value.length-1) != "="){
+               if(input.value != ""){
+                   tempInput.value += input.value;
+                   input.value = eval(tempInput.value.replace("sqrt", "Math.sqrt"));
+                   tempInput.value += "=";
+               }
+            }
+        }
+    }
+    else if(input.value == "" && tempInput.value != ""){
+        input.value = eval(tempInput.value.replace("sqrt", "Math.sqrt"));
+        tempInput.value += "=";
+    }     
+}
