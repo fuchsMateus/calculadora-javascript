@@ -53,7 +53,7 @@ button{
 }
 
 
- #c{grid-area: c;}
+ #c{grid-area: c; font-size: 1.4em;}
 
  #delete{grid-area: delete;}
 
