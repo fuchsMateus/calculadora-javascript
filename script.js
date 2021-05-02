@@ -573,6 +573,10 @@ function clickEquals(){
             if(tempInput.value.charAt(tempInput.value.length-1) != "="){
                if(input.value != ""){
                    tempInput.value += input.value;
+                   while(nOPar>nCPar){
+                       tempInput.value+=")";
+                       ++nCPar;
+                   }
                    input.value = eval(tempInput.value.replace("sqrt", "Math.sqrt"));
                    tempInput.value += "=";
                }
