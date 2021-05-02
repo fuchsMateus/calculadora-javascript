@@ -153,6 +153,10 @@ function clickC(){
    if(c.innerText == "C"){
         tempInput.value = "";
    }
+   if(tempInput.value.charAt(tempInput.value.length-1) == "="){
+    tempInput.value = "";
+    input.value = "";
+}
 }
 
 function clickDot(){
@@ -164,10 +168,14 @@ function clickDot(){
             input.value += ".";
         }
     }
+    if(tempInput.value.charAt(tempInput.value.length-1) == "="){
+        tempInput.value = "";
+    }
  }
 
  function clickOPar(){
-    if(input.value.charAt(input.value.length-1) != "." && tempInput.value.charAt(tempInput.value.length-1) != ")"){
+    if(input.value.charAt(input.value.length-1) != "." && tempInput.value.charAt(tempInput.value.length-1) != ")" 
+        && tempInput.value.charAt(tempInput.value.length-1) != "="){
         tempInput.value += "(";
     }
  }
@@ -243,6 +251,9 @@ function clickDot(){
             tempInput.value = tempInput.value.slice(0, iOPar)+"sqrt"+tempInput.value.slice(iOPar);
         }
     }
+    if(tempInput.value.charAt(tempInput.value.length-1) == "="){
+        tempInput.value = "";
+    }
  }
 
  function pow(n){
@@ -303,10 +314,16 @@ function clickDot(){
             tempInput.value = tempInput.value.slice(0, iOPar)+"pow"+tempInput.value.slice(iOPar);
         }
     }
+    if(tempInput.value.charAt(tempInput.value.length-1) == "="){
+        tempInput.value = "";
+    }
  }
 
  function clickPi(){
      input.value = 3.14159265359;
+     if(tempInput.value.charAt(tempInput.value.length-1) == "="){
+        tempInput.value = "";
+    }
  }
 
  function clickFac(){
@@ -366,6 +383,9 @@ function clickDot(){
         else{
             tempInput.value = tempInput.value.slice(0, iOPar)+"fac"+tempInput.value.slice(iOPar);
         }
+    }
+    if(tempInput.value.charAt(tempInput.value.length-1) == "="){
+        tempInput.value = "";
     }
 }
 
@@ -431,6 +451,9 @@ function clickPercent(){
         else{
             tempInput.value = tempInput.value.slice(0, iCPar)+" / 100"+tempInput.value.slice(iCPar);
         }
+    }
+    if(tempInput.value.charAt(tempInput.value.length-1) == "="){
+        tempInput.value = "";
     }
 }
 
