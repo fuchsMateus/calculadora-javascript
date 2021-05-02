@@ -534,7 +534,7 @@ function clickMinus(){
         }
     }
     else if(input.value == "" && tempInput.value == ""){
-        tempInput.value+="-";
+        tempInput.value+="- ";
     }
 }
 
@@ -566,13 +566,18 @@ function clickPlus(){
 
 function clickEquals(){
     if(input.value != ""){
-        if(tempInput.value == ""){
-            tempInput.value = input.value+" =";
+        if(tempInput.value == "" || tempInput.value == "- "){
+            if(tempInput.value == "- "){
+                input.value = "- "+input.value; 
+            }
+            tempInput.value = input.value+" ="; 
         }
         else{
             if(tempInput.value.charAt(tempInput.value.length-1) != "="){
                if(input.value != ""){
-                   tempInput.value += input.value;
+                   if((tempInput.value.charAt(tempInput.value.length-1) == " " || tempInput.value.charAt(tempInput.value.length-1) == "(")){
+                    tempInput.value += input.value;
+                   }
                    while(nOPar>nCPar){
                        tempInput.value+=")";
                        ++nCPar;
@@ -583,7 +588,11 @@ function clickEquals(){
             }
         }
     }
-    else if(input.value == "" && tempInput.value != ""){
+    else if(input.value == "" && tempInput.value != "" && tempInput.value.charAt(tempInput.value.length-1) != "("){
+        while(nOPar>nCPar){
+            tempInput.value+=")";
+            ++nCPar;
+        }
         input.value = eval(tempInput.value.replace("sqrt", "Math.sqrt"));
         tempInput.value += "=";
     }     
