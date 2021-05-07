@@ -515,7 +515,7 @@ function clickMinus(){
         input.value = "";    
     }
     else if(input.value == "" && tempInput.value != ""){
-        if(tempInput.value.charAt(tempInput.value.length-1) == ")"){
+        if(tempInput.value.charAt(tempInput.value.length-1) == ")" || tempInput.value.charAt(tempInput.value.length-1) == "("){
             tempInput.value += " - ";
         }
         if(tempInput.value.charAt(tempInput.value.length-2) == "*" || tempInput.value.charAt(tempInput.value.length-2) == "/"
