@@ -3,6 +3,7 @@ const tempInput = document.getElementById("calculator-screen-temp");
 const c = document.getElementById("c");
 const sqrt = document.getElementById("sqrt");
 const oPar = document.getElementById("oPar");
+
 let nOPar = 0;
 let nCPar = 0;
 
@@ -33,7 +34,6 @@ function cState(){
     else{
         oPar.innerHTML = "(";
     }
-
 }
 
 function keyDetect(event){
@@ -128,6 +128,9 @@ function keyDetect(event){
 }
 
 function clickNum(clicked_id){
+    if(input.value == "error"){
+        input.value = "";
+    }
     const num = document.getElementById(clicked_id);
     if(input.value != "0"){
         input.value += num.innerText;
@@ -139,6 +142,9 @@ function clickNum(clicked_id){
 }
 
 function clickDel(){
+    if(input.value == "error"){
+        input.value = "";
+    }
     if(input.value != ""){
         input.value = input.value.slice(0, input.value.length-1);
     }
@@ -160,6 +166,9 @@ function clickC(){
 }
 
 function clickDot(){
+    if(input.value == "error"){
+        input.value = "";
+    }
     if(!input.value.includes(".")){
         if(input.value == ""){
             input.value += "0.";
@@ -174,6 +183,9 @@ function clickDot(){
  }
 
  function clickOPar(){
+    if(input.value == "error"){
+        input.value = "";
+    }
     if(input.value.charAt(input.value.length-1) != "." && tempInput.value.charAt(tempInput.value.length-1) != ")" 
         && tempInput.value.charAt(tempInput.value.length-1) != "="){
         tempInput.value += "(";
@@ -181,6 +193,9 @@ function clickDot(){
  }
 
  function clickCPar(){
+    if(input.value == "error"){
+        input.value = "";
+    }
     if(nCPar < nOPar){
         if(tempInput.value.charAt(tempInput.value.length-1) != "(" && tempInput.value.charAt(tempInput.value.length-1) != " "){
             tempInput.value += ")";
@@ -458,6 +473,9 @@ function clickPercent(){
 }
 
 function clickDivision(){
+    if(input.value == "error"){
+        return false;
+    }
     if(input.value != "" && tempInput.value == ""){   
         tempInput.value += input.value + " / ";
         input.value = "";    
@@ -484,6 +502,9 @@ function clickDivision(){
 }
 
 function clickTimes(){
+    if(input.value == "error"){
+        return false;
+    }
     if(input.value != "" && tempInput.value == ""){   
         tempInput.value += input.value + " * ";
         input.value = "";    
@@ -510,6 +531,9 @@ function clickTimes(){
 }
 
 function clickMinus(){
+    if(input.value == "error"){
+        return false;
+    }
     if(input.value != "" && tempInput.value == ""){   
         tempInput.value += input.value + " - ";
         input.value = "";    
@@ -539,6 +563,9 @@ function clickMinus(){
 }
 
 function clickPlus(){
+    if(input.value == "error"){
+        return false;
+    }
     if(input.value != "" && tempInput.value == ""){   
         tempInput.value += input.value + " + ";
         input.value = "";    
@@ -565,6 +592,9 @@ function clickPlus(){
 }
 
 function clickEquals(){
+    if(input.value == "error"){
+        return false;
+    }
     if(input.value != ""){
         if(tempInput.value == "" || tempInput.value == "- "){
             if(tempInput.value == "- "){
